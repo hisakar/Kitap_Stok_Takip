@@ -1,0 +1,25 @@
+<div class="aling-self-center" style="height: 1000px;">
+    <div class="container" *ngIf="demands.length == 0">
+        <div class="display-1">Talep Yok</div>
+    </div>
+    <div class="container mt-5" *ngIf="demands.length > 0">
+        <table class="table table-striped">
+            <thead class="thead-inverse table-warning ">
+                <tr>
+                    <th>Kullanıcı</th>
+                    <th>Talep Edilen Kitap İsmi</th>
+                    <th>Talep Edilen Kitap Yazarı</th>
+                    <th>Talep Tarihi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let demand of demands">
+                    <td>{{demand.user.username}}</td>
+                    <td>{{demand.bookName}}</td>
+                    <td>{{demand.writer}}</td>
+                    <td>{{demand.requestedDate}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="container mt-2">
+    <div class="container mt-5 mb-5">
+        <h1>Mağazadaki Kitaplar <span class="badge badge-primary"><i class="fas fa-book text-lignt"></i></span></h1>
+    </div>
+    <ul class="list-group" *ngFor="let book of books">
+
+        <li class="list-group-item list-group-item-action mb-1 mr-5">
+
+            <button type="button" class="btn btn-outline-warning" [ngClass]="{'btn-warning text-dark': isFav(book) }" (click)="addRemoveFavorite(book)">
+                <i class="far fa-bookmark"></i></button> {{book.bookName}}
+            <span class="ml-5 badge badge-success">{{book.writer}}</span> <span class="ml-5 badge badge-default">Fiyat:
+                {{book.price}} &#8378;</span>
+            <div class="text-right">
+                <span class="">
+                    <button type="button" class="btn btn-primary" *ngIf="!isChart(book)" (click)="addRemoveChart(book)">
+                        Sepete Ekle</button>
+                    <button type="button" class="btn btn-primary" *ngIf="isChart(book)" (click)="addRemoveChart(book)">
+                        Sepetten Sil</button>
+                </span>
+            </div>
+
+        </li>
+    </ul>
+
+</div>

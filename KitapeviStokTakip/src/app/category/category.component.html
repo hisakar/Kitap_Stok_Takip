@@ -1,0 +1,45 @@
+<div class="container mt-5 mb-5">
+    <h1>Kategori Ekle <span class="badge badge-primary"><i class="fas fa-align-right text-light"></i></span></h1>
+</div>
+
+<div class="input-group mb-3 mt-5">
+
+    <form class="container" [formGroup]="categoryForm" (ngSubmit)="onAddSubmit()">
+        <div class="col-6 cont-border">
+            <div class="mb-3">
+                <label>Kategori İsmi</label>
+                <input type="text" class="form-control" placeholder="Kategori ismi" formControlName="categoryName" [ngClass]="{ 'is-invalid': addSubmitted && categoryFormCont.categoryName.errors }">
+                <div *ngIf="addSubmitted && categoryFormCont.categoryName.errors" class="invalid-feedback">
+                    <div class="p-1 text-light required" *ngIf="categoryFormCont.categoryName.errors.required">Kategori giriniz
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <button class="btn btn-success ml-3" type="submit">Ekle</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="container card mt-4">
+    <h4 class="card-header">Kategoriler</h4>
+    <div class="card-body">
+        <table class="table mt-1 table-hover table-striped">
+            <thead class="thead table-primary">
+                <tr>
+                    <th scope="col"><i class="fas fa-signature"></i></th>
+                    <th class="text-center" scope="col"><i class="fas fa-trash-alt"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let category of categories">
+                    <td>{{category.categoryName}}</td>
+                    <td class="text-center"> <button class="btn btn-danger my-2 my-sm-0" (click)="onDeleteSubmit(category);">Sil</button>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

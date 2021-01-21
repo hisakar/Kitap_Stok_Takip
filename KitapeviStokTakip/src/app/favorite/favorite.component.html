@@ -1,0 +1,16 @@
+<div class="container mt-4" style="height: 1000px;">
+    <div *ngIf="favoriteBooks" class="row">
+        <div *ngFor="let book of favoriteBooks" class="col-4 mb-2">
+            <div class="card" style="width: 18rem; height: 12rem;">
+                <div class="card-body card-bg">
+                    <h5 class="card-title ">{{book.bookName}}</h5>
+                    <a href="/home" class="card-link text-light">{{book.writer}}</a>
+                </div>
+                <a class="btn card-footer bg-danger text-light" (click)="deleteFavorite(book)">Kaydedilenlerden Sil</a>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="favoriteBooks.length == 0" class="mt-5">
+        <div class="display-1">Kayıtlı Kitap Yok</div>
+    </div>
+</div>

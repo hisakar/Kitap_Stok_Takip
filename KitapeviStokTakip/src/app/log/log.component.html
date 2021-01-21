@@ -1,0 +1,112 @@
+<div class="container">
+    <div *ngIf="bookLogs.length > 0">
+        <div class="container mt-5">
+            <h1>KAYITLAR <span class="badge badge-warning text-white">Kitaplar</span></h1>
+        </div>
+        <nav class="navbar bg-dark mt-5">
+            <form class="form-inline my-2 my-lg-0">
+                <!-- <input class="form-control mr-sm-2" type="text" [(ngModel)]="bookNameSearch" (ngModelChange)="Search()" placeholder="Ara"> -->
+                <input class="form-control mr-sm-2" type="text" placeholder="Ara">
+                <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <button class="btn btn-danger my-2 my-sm-0" (click)="onDeleteAllBookSubmit()">Tümünü Sil</button>
+        </nav>
+        <div class="mt-1 row text-center text-light container d-flex justify-content-around">
+            <div class="bg-green-l col-2 " style="height: 30px;">Ekleme</div>
+            <div class="bg-yellow-l d-inline col-2 " style="height: 30px;">Güncelleme</div>
+            <div class="bg-red-l d-inline col-2" style="height: 30px;">Silme</div>
+            <div class="bg-sweet-l d-inline col-2 text-dark" style="height: 30px;">Değişiklik</div>
+        </div>
+        <table class="table mt-1 table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th style="width: 6.00%" scope="col">Id</th>
+                    <th scope="col">Log Tipi</th>
+                    <th scope="col">Yeni İsmi</th>
+                    <th scope="col">Eski İsmi</th>
+                    <th scope="col">Yeni Yazar</th>
+                    <th scope="col">Eski Yazar</th>
+                    <th scope="col">Yeni Fiyat</th>
+                    <th scope="col">Eski Fiyat</th>
+                    <th scope="col">Yeni Stok Adedi</th>
+                    <th scope="col">Eski Stok Adedi</th>
+                    <th scope="col">Log Tarihi</th>
+                    <th scope="col"></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let log of bookLogs">
+                    <td>{{log.logId}}</td>
+                    <td class="text-light" [ngClass]="{'bg-green-l': log.logType === 'Kitap Ekleme','bg-yellow-l': log.logType === 'Kitap Güncelleme', 'bg-red-l': log.logType === 'Kitap Silme' }">
+                        {{log.logType}}</td>
+                    <td [ngClass]="{'bg-sweet-l': log.logType === 'Kitap Güncelleme' && log.newName!=log.oldName}" *ngIf="log.newName; else empty">{{log.newName}}</td>
+                    <td [ngClass]="{'bg-sweet-l': log.logType === 'Kitap Güncelleme' && log.newName!=log.oldName}" *ngIf="log.oldName; else empty">{{log.oldName}}</td>
+                    <td [ngClass]="{'bg-sweet-l': log.logType === 'Kitap Güncelleme' && log.newWriter!=log.oldWriter}" *ngIf="log.newWriter; else empty">{{log.newWriter}}</td>
+                    <td [ngClass]="{'bg-sweet-l': log.logType === 'Kitap Güncelleme' && log.newWriter!=log.oldWriter}" *ngIf="log.oldWriter; else empty">{{log.oldWriter}}</td>
+                    <td [ngClass]="{'bg-sweet-l': log.logType === 'Kitap Güncelleme' && log.newPrice!=log.oldPrice}" *ngIf="log.newPrice; else empty">{{log.newPrice}}</td>
+                    <td [ngClass]="{'bg-sweet-l': log.logType === 'Kitap Güncelleme' && log.newPrice!=log.oldPrice}" *ngIf="log.oldPrice; else empty">{{log.oldPrice}}</td>
+                    <td [ngClass]="{'bg-sweet-l': log.logType === 'Kitap Güncelleme' && log.newStockAmount!=log.oldStockAmount}" *ngIf="log.newStockAmount; else empty">{{log.newStockAmount}}</td>
+                    <td [ngClass]="{'bg-sweet-l': log.logType === 'Kitap Güncelleme' && log.newStockAmount!=log.oldStockAmount}" *ngIf="log.oldStockAmount; else empty">{{log.oldStockAmount}}</td>
+                    <td>{{log.logDate}}</td>
+                    <td>
+                        <button class="btn btn-danger my-2 my-sm-0" (click)="onDeleteBookSubmit(log)">Sil</button>
+                    </td>
+                    <ng-template #empty>
+                        <td class="text-danger">---</td>
+                    </ng-template>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="categoryLogs.length > 0">
+        <div class="container mt-5">
+            <h1>KAYITLAR <span class="badge badge-primary">Kategoriler</span></h1>
+        </div>
+        <nav class="navbar bg-dark mt-5">
+            <form class="form-inline my-2 my-lg-0">
+                <!-- <input class="form-control mr-sm-2" type="text" [(ngModel)]="bookNameSearch" (ngModelChange)="Search()" placeholder="Ara"> -->
+                <input class="form-control mr-sm-2" type="text" placeholder="Ara">
+                <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <button class="btn btn-danger my-2 my-sm-0" (click)="onDeleteAllCategorySubmit()">Tümünü Sil</button>
+        </nav>
+        <div class="mt-1 row text-center text-light container d-flex justify-content-around">
+            <div class="bg-green-l col-2 " style="height: 30px;">Ekleme</div>
+            <div class="bg-yellow-l d-inline col-2 " style="height: 30px;">Güncelleme</div>
+            <div class="bg-red-l d-inline col-2" style="height: 30px;">Silme</div>
+        </div>
+        <table class="table mt-1 table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th style="width: 6.00%" scope="col">Id</th>
+                    <th scope="col">Log Tipi</th>
+                    <th scope="col">Yeni İsmi</th>
+                    <th scope="col">Eski İsmi</th>
+                    <th scope="col">Log Tarihi</th>
+                    <th scope="col">
+
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let log of categoryLogs">
+                    <td>{{log.logId}}</td>
+                    <td class="text-light" [ngClass]="{'bg-green-l': log.logType === 'Kategori Ekleme','bg-yellow-l': log.logType === 'Kategori Güncelleme', 'bg-red-l': log.logType === 'Kategori Silme' }">
+                        {{log.logType}}</td>
+                    <td *ngIf="log.newName; else empty">{{log.newName}}</td>
+                    <td *ngIf="log.oldName; else empty">{{log.oldName}}</td>
+                    <td>{{log.logDate}}</td>
+                    <td>
+                        <button class="btn btn-danger my-2 my-sm-0" (click)="onDeleteCategorySubmit(log)">Sil</button>
+                    </td>
+                    <ng-template #empty>
+                        <td>-</td>
+                    </ng-template>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="container mt-5 mb-5">
+        <h1>Siparişler <span class="badge badge-primary"><i class="fas fa-cash-register text-light"></i></span></h1>
+    </div>
+    <table class="table mt-1 table-hover table-striped">
+        <thead class="thead table-primary">
+            <tr>
+                <th scope="col"><i class="fas fa-user"></i> Kullanıcı</th>
+                <th scope="col"><i class="fas fa-book"></i> Kitap İsmi</th>
+                <th scope="col"><i class="fas fa-barcode"></i> Kitap Barkod</th>
+                <th scope="col"><i class="fas fa-book"></i> Sipariş Tarihi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of charts">
+                <td>{{item.user.username}}</td>
+                <td>{{item.book.bookName}}</td>
+                <td>{{item.book.barcode}}</td>
+                <td>{{item.orderedDate}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

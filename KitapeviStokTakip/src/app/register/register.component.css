@@ -1,0 +1,16 @@
+.form-control.is-invalid {
+    border-left: 5px solid rgb(167, 0, 0);
+}
+
+.form-control.is-ng-valid {
+    border-left: 5px solid rgb(0, 167, 14);
+}
+
+.required {
+    background-color: rgba(220, 20, 60, 0.678);
+    border-radius: 15px;
+}
+
+.bg-sweet {
+    background-color: rgba(255, 192, 203, 0.795);
+}

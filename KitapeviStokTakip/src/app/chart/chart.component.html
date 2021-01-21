@@ -1,0 +1,17 @@
+<div class="container mt-4" style="height: 1000px;">
+    <div *ngIf="chartItems.length == 0" class="mt-5">
+        <div class="display-1">Sipariş Yok</div>
+    </div>
+
+    <ul class="list-group " *ngFor="let item of chartItems">
+
+        <li class="list-group-item bg-green-l-4 mt-2 list-group-item-action d-flex justify-content-between">
+
+            <h5 style="width: 20.00%" class="card-title d-inline">{{item.bookName}}</h5>
+            <span class="badge badge-primary align-self-center p-2">Fiyatı: {{item.price}}</span>
+            <span class="align-self-center font-weight-bold">Türü: {{item.category.categoryName}} </span>
+            <a class="btn card-footer bg-danger align-self-center text-light" (click)="deleteChartItem(item)"> Sepetten Sil</a>
+        </li>
+    </ul>
+
+</div>

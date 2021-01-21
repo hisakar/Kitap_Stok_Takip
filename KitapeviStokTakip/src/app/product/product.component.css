@@ -1,0 +1,46 @@
+.test /deep/ .current {
+    background: #3f4133 !important;
+    border: transparent !important;
+    border-radius: 20px !important;
+}
+
+.test /deep/ .pagination-previous,
+.test /deep/ .pagination-next {
+    color: rgb(255, 255, 255);
+    background-color: rgb(42, 141, 255);
+    border-radius: 20px !important;
+}
+
+.test /deep/ .pagination-previous:hover,
+.test /deep/ .pagination-next :hover {
+    color: rgb(0, 0, 0);
+    background-color: rgb(173, 255, 42);
+    border-radius: 20px !important;
+}
+
+.ml-6 {
+    margin-left: 485px;
+}
+
+.modal.show {
+    display: block;
+}
+
+.bg-opac-50 {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.required {
+    background-color: rgba(220, 20, 60, 0.678);
+    border-radius: 15px;
+    text-align: center;
+}
+
+.modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}
+
+.bg-blue-grey {
+    background-color: #c6d4e4;
+}

@@ -1,0 +1,21 @@
+.bg-sweet-l {
+    background-color: rgba(255, 192, 203, 0.795);
+}
+
+.bg-green-l {
+    background-color: rgba(85, 202, 56, 0.795);
+}
+
+.bg-red-l {
+    background-color: rgba(209, 60, 85, 0.795);
+}
+
+.bg-yellow-l {
+    background-color: rgba(223, 226, 40, 0.795);
+}
+
+.ajs-message.ajs-custom {
+    color: #dd0000;
+    background-color: #349e57;
+    border-color: #31708f;
+}

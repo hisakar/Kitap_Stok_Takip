@@ -1,0 +1,43 @@
+<div class="">
+    <div class="col-md-6 offset-md-3 mt-5">
+        <div class="card">
+            <div class="card-body p-5 bg-image" style="
+                            background-image: linear-gradient(to bottom, rgba(33, 231, 165, 0.6) ,rgba(207, 46, 46, 0.6)), url('https://cdn.pixabay.com/photo/2016/08/24/16/20/books-1617327_1280.jpg')   ;        
+                            height: 700px;">
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label class="text-light" for="email">Email</label>
+                        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div class="p-1 text-light required" *ngIf="f.email.errors.required">Email giriniz</div>
+                            <div class="p-1 text-light required" *ngIf="f.email.errors.email">Geçersiz Email</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="text-light" for="username">Kullanıcı Adı</label>
+                        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                            <div class="p-1 text-light required" *ngIf="f.username.errors.required">Kullanıcı Adı giriniz</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="text-light" for="password">Parola</label>
+                        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <div class="p-1 text-light required" *ngIf="f.password.errors.required">Parola giriniz</div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        Kaydol
+                    </button>
+
+
+                </form>
+                <div *ngIf="message" class="alert bg-sweet text-dark mt-3 mb-0">{{message.error.text}}</div>
+                <button class="btn btn-success mt-5" [routerLink]="['/login']">
+                    Giriş Yap
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

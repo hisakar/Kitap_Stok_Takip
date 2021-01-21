@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <a class="navbar-brand text-dark" href="#"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+
+                <a class="nav-link" [routerLink]="['/admin']" routerLinkActive="active"><i
+                        class="fas fa-user-circle text-warning"></i> Admin <span class="sr-only">(current)</span></a>
+            </li>
+            <li>
+                <a class="nav-link" [routerLink]="['/products']" routerLinkActive="active"><i
+                        class="fas fa-book text-warning"></i> Kitaplar</a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/logs']" routerLinkActive="active"><i
+                        class="fas fa-newspaper text-warning"></i> Kayıtlar</a>
+            </li>
+
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/orders']" routerLinkActive="active"><i class="fas fa-cash-register text-warning"></i> Gelen Siparişler</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/wish-list']" routerLinkActive="active"><i class="fas fa-book text-warning"></i> Talep Edilen Kitaplar</a>
+            </li>
+
+            <li class="nav-item ml-5">
+                <button class="btn-danger btn" (click)="logout()">Çıkış Yap</button>
+            </li>
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,45 @@
+<div class="container mt-5 mb-5">
+    <h1>Yayınevi Ekle <span class="badge badge-primary"><i class="fab fa-creative-commons text-light"></i></span></h1>
+</div>
+
+<div class="input-group mb-3 mt-5">
+
+    <form class="container" [formGroup]="publisherForm" (ngSubmit)="onAddSubmit()">
+        <div class="col-6 cont-border">
+            <div class="mb-3">
+                <label for="publisher">Yayınevi İsmi</label>
+                <input id="publisher" type="text" class="form-control" placeholder="Yayınevi ismi" formControlName="publisherName" [ngClass]="{ 'is-invalid': addSubmitted && publisherFormCont.publisherName.errors }">
+                <div *ngIf="addSubmitted && publisherFormCont.publisherName.errors" class="invalid-feedback">
+                    <div class="p-1 text-light required" *ngIf="publisherFormCont.publisherName.errors.required">Yayınevi giriniz
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <button class="btn btn-success ml-3" type="submit">Ekle</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="container card mt-4">
+    <h4 class="card-header">Yayınevleri</h4>
+    <div class="card-body">
+        <table class="table mt-1 table-hover table-striped">
+            <thead class="thead table-primary">
+                <tr>
+                    <th scope="col"><i class="fas fa-signature"></i></th>
+                    <th class="text-center" scope="col"><i class="fas fa-trash-alt"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let publisher of publishers">
+                    <td>{{publisher.publisherName}}</td>
+                    <td class="text-center"> <button class="btn btn-danger my-2 my-sm-0" (click)="onDeleteSubmit(publisher);">Sil</button>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

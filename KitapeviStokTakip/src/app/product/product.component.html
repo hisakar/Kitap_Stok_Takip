@@ -1,0 +1,240 @@
+<div class="container mt-2">
+
+    <div class="container mt-5">
+        <h1 class="d-inline">KİTAPLAR <span class="badge badge-primary">Stok</span></h1>
+        <div class="d-inline ml-6">
+            <button class="btn btn-outline-primary mr-5 text-right" type="submit" [routerLink]="['/categories']">Kategoriler</button>
+            <button class="btn btn-outline-primary mr-5 text-right" type="submit" [routerLink]="['/publishers']">Yayınevleri</button>
+        </div>
+    </div>
+    <div class="input-group mb-3 mt-5 bg-blue-grey p-2">
+
+        <form class="container" [formGroup]="bookForm" (ngSubmit)="onAddSubmit()">
+            <div class="row">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Yeni</span>
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control ml-1" placeholder="Kitap ismi" formControlName="bookName" [ngClass]="{ 'is-invalid': addSubmitted && bookFormCont.bookName.errors }">
+                    <div *ngIf="addSubmitted && bookFormCont.bookName.errors" class="invalid-feedback">
+                        <div class="p-1 text-light required" *ngIf="bookFormCont.bookName.errors.required">Kitap giriniz
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control ml-2" placeholder="Yazar ismi" formControlName="writer" [ngClass]="{ 'is-invalid': addSubmitted && bookFormCont.writer.errors }">
+                    <div *ngIf="addSubmitted && bookFormCont.writer.errors" class="invalid-feedback">
+                        <div class="p-1 text-light required" *ngIf="bookFormCont.writer.errors.required">Yazar giriniz
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <select [(ngModel)]="selectedPubl" #publisher name="publisher" required class="form-control ml-2" formControlName="publisherId" [ngClass]="{ 'is-invalid': addSubmitted && bookFormCont.publisherId.errors }">
+                        <option [ngValue]="null" disabled>Yayınevi</option>
+                        <option class="select" *ngFor="let publisher of publishers" [value]="publisher.publisherId">
+                            {{publisher.publisherName}}
+                        </option>
+                    </select>
+                    <div *ngIf="addSubmitted && bookFormCont.publisherId.errors" class="invalid-feedback">
+                        <div class="p-1 text-light required" *ngIf="bookFormCont.publisherId.errors.required">Yayınevi giriniz
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control ml-2" placeholder="Fiyatı" formControlName="price" [ngClass]="{ 'is-invalid': addSubmitted && bookFormCont.price.errors }">
+                    <div *ngIf="addSubmitted && bookFormCont.price.errors" class="invalid-feedback">
+                        <div class="p-1 text-light required" *ngIf="bookFormCont.price.errors.required">Fiyat giriniz
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control ml-2" placeholder="Stok sayısı" formControlName="stockAmount" [ngClass]="{ 'is-invalid': addSubmitted && bookFormCont.stockAmount.errors }">
+                    <div *ngIf="addSubmitted && bookFormCont.stockAmount.errors" class="invalid-feedback">
+                        <div class="p-1 text-light required" *ngIf="bookFormCont.stockAmount.errors.required">Stok giriniz
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <input maxlength="13" type="text" class="form-control ml-2" placeholder="Barkod" formControlName="barcode" [ngClass]="{ 'is-invalid': addSubmitted && bookFormCont.barcode.errors }">
+                    <div *ngIf="addSubmitted && bookFormCont.barcode.errors" class="invalid-feedback">
+                        <div class="p-1 text-light required" *ngIf="bookFormCont.barcode.errors.required">barcode giriniz
+                        </div>
+                        <div class="p-1 text-light required" *ngIf="bookFormCont.barcode.errors.minlength">barcode 13 haneli olmalı</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <select [(ngModel)]="selectedCate" #category name="category" required class="form-control ml-2" formControlName="categoryId" [ngClass]="{ 'is-invalid': addSubmitted && bookFormCont.categoryId.errors }">
+                        <option [ngValue]="null" disabled>Kategori</option>
+                        <option class="select" *ngFor="let category of categories" [value]="category.categoryId">
+                            {{category.categoryName}}
+                        </option>
+                    </select>
+                    <div *ngIf="addSubmitted && bookFormCont.categoryId.errors" class="invalid-feedback">
+                        <div class="p-1 text-light required" *ngIf="bookFormCont.categoryId.errors.required">Kategori giriniz
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <button class="btn btn-success ml-3" type="submit">Ekle</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <nav class="navbar bg-dark">
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" [(ngModel)]="bookNameSearch" name="search" (ngModelChange)="Search()" placeholder="Ara">
+            <button class="btn btn-info my-2 my-sm-0" type="submit">Ara</button>
+        </form>
+
+        <form class="form-inline" (submit)="setCritical(crit.value)">
+            <label class="text-light mr-3" for="critical">Kritik Seviye Giriniz</label>
+            <input #crit (blur)="setCritical(crit.value)" class="form-control mr-sm-2" type="number" [(ngModel)]="critical" name="critical" placeholder="Kritik Seviye Giriniz">
+        </form>
+
+    </nav>
+    <table class="table table-hover mt-1">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col"><i class="fas fa-book text-info"></i> Kitap ismi</th>
+                <th scope="col"><i class="fas fa-book text-info"></i> Kategori</th>
+                <th scope="col"><i class="fas fa-book text-info"></i> Yayın Evi</th>
+                <th scope="col"><i class="fas fa-feather-alt"></i> Yazar ismi</th>
+                <th scope="col"><i class="fas fa-money-bill-wave-alt text-info"></i> Fiyatı</th>
+                <th scope="col"><i class="fas fa-cubes text-info"></i> Stok Sayısı</th>
+                <th scope="col"><i class="fas fa-barcode text-info"></i> Barkod</th>
+                <th scope="col"><i class="far fa-calendar text-info"></i> S. D. Tarihi</th>
+                <th class="text-danger" scope="col">Kritik <i class="fas fa-arrow-right text-danger"></i></th>
+                <th scope="col">{{critical}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let book of books | paginate: { itemsPerPage: 7, currentPage: p } | filter: term ">
+                <td>{{book.bookId}}</td>
+                <td>{{book.bookName}}</td>
+                <td>{{book.category.categoryName}}</td>
+                <td>{{book.publisher.publisherName}}</td>
+                <td>{{book.writer}}</td>
+                <td>{{book.price}} &#8378;</td>
+                <td class="table-primary">{{book.stockAmount}} <span *ngIf="book.stockAmount < critical" class="badge badge-danger ">Kritik
+                        seviye</span></td>
+                <td>{{book.barcode}}</td>
+                <td>{{book.addedDate}}</td>
+                <td>
+                    <!-- Button trigger modal -->
+                    <button class="btn btn-warning my-2 my-sm-0" (click)="onEdit(book);">Güncelle</button>
+                </td>
+                <td>
+                    <button class="btn btn-danger my-2 my-sm-0" (click)="onDeleteSubmit(book)">Sil</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <pagination-controls class="container d-flex justify-content-end" (pageChange)="p = $event" previousLabel="Geri " nextLabel="İleri ">
+    </pagination-controls>
+
+    <!-- Modal -->
+    <div class="modal fade bg-opac-50" [ngClass]="{'show':showModal}" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- MODAL HEADER -->
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title" id="exampleModalLabel">Güncelle</h5>
+                    <button type="button" (click)="showModal=false" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- MODAL BODY -->
+                <div class="modal-body">
+                    <form class="container" [formGroup]="updateForm" (ngSubmit)="onUpdateSubmit()">
+                        <div class="form-group">
+                            <label>Kitap İsmi</label>
+                            <input type="text" class="form-control mr-2" placeholder="Kitap İsmi" formControlName="bookName" [ngClass]="{ 'is-invalid': updateSubmitted && updateFormCont.bookName.errors }">
+                            <div *ngIf="updateSubmitted && updateFormCont.bookName.errors" class="invalid-feedback">
+                                <div class="p-1 text-light required" *ngIf="updateFormCont.bookName.errors.required">
+                                    Kitap giriniz
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Yazar</label>
+                            <input type="text" class="form-control" placeholder="Yazar" formControlName="writer" [ngClass]="{ 'is-invalid': updateSubmitted && updateFormCont.writer.errors }">
+                            <div *ngIf="updateSubmitted && updateFormCont.writer.errors" class="invalid-feedback">
+                                <div class="p-1 text-light required" *ngIf="updateFormCont.writer.errors.required">Yazar giriniz
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Yayınevi</label>
+                            <select class="form-control" formControlName="publisherId" [ngClass]="{ 'is-invalid': updateSubmitted && updateFormCont.publisherId.errors }">
+                                <option [ngValue]="null" *ngIf="selectedPublisher" disabled>
+                                    {{selectedPublisher.publisherName}}</option>
+                                <option class="select" *ngFor="let publisher of publishers" [value]="publisher.publisherId">
+                                    {{publisher.publisherName}}
+                                </option>
+                            </select>
+                            <div *ngIf="updateSubmitted && updateFormCont.publisherId.errors" class="invalid-feedback">
+                                <div class="p-1 text-light required" *ngIf="updateFormCont.publisherId.errors.required">Yayınevi giriniz
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Fiyat</label>
+                            <input type="number" class="form-control mr-2" placeholder="Fiyatı" formControlName="price" [ngClass]="{ 'is-invalid': updateSubmitted && updateFormCont.price.errors }">
+                            <div *ngIf="updateSubmitted && updateFormCont.price.errors" class="invalid-feedback">
+                                <div class="p-1 text-light required" *ngIf="updateFormCont.price.errors.required">Fiyat giriniz
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Stok Sayısı</label>
+                            <input type="number" class="form-control" placeholder="Stok sayısı" formControlName="stockAmount" [ngClass]="{ 'is-invalid': updateSubmitted && updateFormCont.stockAmount.errors }">
+                            <div *ngIf="updateSubmitted && updateFormCont.stockAmount.errors" class="invalid-feedback">
+                                <div class="p-1 text-light required" *ngIf="updateFormCont.stockAmount.errors.required">
+                                    Stok giriniz
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Barkod</label>
+                            <input maxlength="13" type="text" class="form-control" placeholder="Barkod" formControlName="barcode" [ngClass]="{ 'is-invalid': updateSubmitted && updateFormCont.barcode.errors }">
+                            <div *ngIf="updateSubmitted && updateFormCont.barcode.errors" class="invalid-feedback">
+                                <div class="p-1 text-light required" *ngIf="updateFormCont.barcode.errors.required">
+                                    Barkod giriniz
+                                </div>
+                                <div class="p-1 text-light required" *ngIf="updateFormCont.barcode.errors.minlength">
+                                    Barkod 13 haneli olmalı</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Kategori</label>
+                            <select class="form-control" formControlName="categoryId" [ngClass]="{ 'is-invalid': updateSubmitted && updateFormCont.categoryId.errors }">
+                                <option [ngValue]="null" *ngIf="selectedCategory" disabled>
+                                    {{selectedCategory.categoryName}}</option>
+                                <option class="select" *ngFor="let category of categories"
+                                    [value]="category.categoryId">
+                                    {{category.categoryName}}
+                                </option>
+
+                            </select>
+                            <div *ngIf="updateSubmitted && updateFormCont.categoryId.errors" class="invalid-feedback">
+                                <div class="p-1 text-light required" *ngIf="updateFormCont.categoryId.errors.required">
+                                    Kategori giriniz
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container d-flex justify-content-end">
+                            <button type="button" class="btn btn-danger mr-3" (click)="showModal=false; ngOnInit();" data-dismiss="modal">İptal</button>
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
